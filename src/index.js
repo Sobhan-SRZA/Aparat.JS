@@ -1,7 +1,22 @@
-const { api, aparat } = require('./function/Classes');
 module.exports = {
-  API: api,
-  Aparat: aparat
+  /**
+   * @class
+   * Export all function from aparat.js
+   * Example:
+   * ```js
+   * const { API } = require('aparat.js');
+   * const api = new API();
+   * ```
+   * @returns
+   */
+  API: class API {
+    constructor() {
+      const APIUser = require('./assets/APIUser');
+      const APIVideo = require('./assets/APIVideo');
+      this.user = new APIUser();
+      this.video = new APIVideo();
+    };
+  }
 };
 /**
  * @copyright

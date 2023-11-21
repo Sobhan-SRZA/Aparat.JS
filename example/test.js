@@ -1,19 +1,11 @@
-const { API, Aparat } = require('../src/index');
+const { API } = require("../src/index");
 
 // With api class
 const api = new API();
 (async () => {
     const user = await api.user.search("shervinbdndev");
-    console.log(user.followers.toLocaleString());
-    console.log(user.followings.toLocaleString());
-})();
-
-// With aparat class
-const aparat = new Aparat();
-(async () => {
-    const user = await aparat.user.search("shervinbdndev");
-    console.log(user.followers.toLocaleString());
-    console.log(user.followings.toLocaleString());
+    console.log(`Followers Count With API Class: ${user.followers.toLocaleString()}`);
+    console.log(`Followings Count With API Class: ${user.followings.toLocaleString()}`);
 })();
 /**
  * @copyright

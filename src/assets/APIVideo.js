@@ -1,10 +1,14 @@
-const getVideo = require('./function/GetVideo');
 module.exports = class Video {
   /**
    * 
    * @param {string} args 
    */
   async search(args) {
+    let url = `https://www.aparat.com/etc/api/videoBySearch/text/${args}`;
+    // let url = `https://www.aparat.com/api/fa/v1/video/video/search/text/${args}/?type_search=search`;
+    let res = await fetch(url).then(res => res.json());
+    let vidoes = res;
+    return vidoes;
   }
 };
 /**

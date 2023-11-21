@@ -1,6 +1,6 @@
 {
   "name": "aparat.js",
-  "version": "1.0.4",
+  "version": "1.0.0",
   "author": "Sobhan-SRZA (mr.sinre) & Persian Caesar",
   "description": "The aparat website services for npm package.",
   "main": "src/index.js",
@@ -8,18 +8,6 @@
   "scripts": {
     "test": "node example/test.js"
   },
-  "keywords": [
-    "aparat.js",
-    "aparat.com",
-    "aparat",
-    "js",
-    "node.js",
-    "dispart",
-    "aparatjs",
-    "npm",
-    "persian caesar",
-    "sobhan-srza"
-  ],
   "bugs": {
     "url": "https://github.com/Sobhan-SRZA/aparat.js/issues"
   },
@@ -28,7 +16,17 @@
     "url": "git+https://github.com/Sobhan-SRZA/aparat.js.git"
   },
   "homepage": "https://github.com/Sobhan-SRZA/aparat.js#readme",
-  "dependencies": {
-    "axios": "^1.5.1"
-  }
+  "keywords": [
+    "aparat.js",
+    "aparat.com",
+    "aparat",
+    "aparatdl",
+    "js",
+    "node.js",
+    "dispart",
+    "aparatjs",
+    "npm",
+    "persian caesar",
+    "sobhan-srza"
+  ]
 }
