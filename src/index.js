@@ -11,7 +11,7 @@ module.exports = {
    * const { API } = require("aparat.js");
    * const api = new API();
    * ```
-   */
+   */ 
   API: class API extends EventEmitter {
     constructor() {
       super();

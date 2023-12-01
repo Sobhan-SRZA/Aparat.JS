@@ -90,7 +90,7 @@ module.exports = class User {
         if (error.stack.includes("Unexpected token")) {
           return results();
         } else {
-          throw Error("User not found OwO");
+          // throw Error("User not found OwO");
         }
       }
     };

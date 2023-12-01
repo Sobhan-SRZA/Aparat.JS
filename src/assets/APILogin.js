@@ -11,7 +11,7 @@ module.exports = class Login {
         if (response.status == 200) { 
             return response.data;
         } else {
-            throw new Error("Can't loggin to aparat account OwO");
+            // throw Error("Can't loggin to aparat account OwO");
         };
     }
 };
