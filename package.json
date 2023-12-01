@@ -1,6 +1,6 @@
 {
   "name": "aparat.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Sobhan-SRZA (mr.sinre) & Persian Caesar",
   "description": "The aparat website services for npm package.",
   "main": "src/index.js",
@@ -19,14 +19,18 @@
   "keywords": [
     "aparat.js",
     "aparat.com",
+    "persian",
+    "discord",
+    "downloader",
     "aparat",
     "aparatdl",
     "js",
     "node.js",
     "dispart",
     "aparatjs",
+    "aparat-js",
     "npm",
-    "persian caesar",
+    "persian-caesar",
     "sobhan-srza"
   ]
 }

@@ -1,56 +1,105 @@
 module.exports = class User {
-  /**
-   * 
-   * @param {string} username 
-   * @returns 
-   */
-  async search(username) {
-    let url = "https://www.aparat.com/etc/api/profile/username/";
-    // let url = "https://www.aparat.com/api/fa/v1/user/user/information/username/";
-    let res = await fetch(url + username).then(res => res.json());
-    let user = res.profile;
-    return {
-      description: String(user?.descr),
-      followers: Number(user?.follower_cnt),
-      followings: Number(user?.followed_cnt),
-      total_video: Number(user?.video_cnt),
-      is_live: Boolean(user?.has_live == "yes" ? true : false),
-      is_official: Boolean(user?.official == "yes" ? true : false),
-      user: {
-        name: String(user?.name),
-        username: String(user?.username),
-        id: Number(user?.userid),
-        icon: String(user?.pic_b),
-        cover: String(user?.cover_src),
-        links: {
-          website: String(user?.url),
-          twitter: String(user?.twitter),
-          lenzor: String(user?.lenzor),
-          cloob: String(user?.cloob),
-          facebook: String(user?.facebook)
-        }
-      }
-    };
-  }
 
   /**
    * 
-   * @param {string} username
-   * @param {string} password
+   * @param {string} username 
+   * 
+   * @description
+   * Finding a user by username or user profile url and returns user profile informations.
+   * 
+   * @example
+   * ```js
+   * const { API } = require("aparat.js");
+   * const api = new API();
+   * (async () => {
+   *  // User information results.
+   *  const user = await api.user.search("shervinbdndev");
+   *  console.log(`Followers: ${user.followers.toLocaleString()}`);
+   *  console.log(`Followings: ${user.followings.toLocaleString()}`);
+   * })(); 
+   * ```
    */
-  async login(username, password) {
-    let url = `https://www.aparat.com/etc/api/login/luser/${username}/lpass/${password}`;
-    let response = await fetch(url).then(res => res);
-    if (response.status == 200) {
-      return response.json();
-    } else {
-      throw new Error("Can't loggin to aparat account OwO");
+  search(username) {
+    async function results() {
+      try {
+        let url = "https://www.aparat.com/api/fa/v1/user/user/information/username/";
+        let url1 = "https://www.aparat.com/api/fa/v2/Live/LiveStream/show/username/";
+        let url2 = "https://www.aparat.com/etc/api/profile/username/";
+        let res = await fetch(url + username).then(res => res.json());
+        let res1 = await fetch(url2 + username).then(res => res.json());
+        let live = await fetch(url1 + username).then(res => res.json());
+        let user = res.data.attributes;
+        let user1 = res1.profile;
+        let results = {
+          description: String(user.description),
+          created_at: String(user.start_date),
+          followers: String(user.follower_cnt),
+          followers_int: Number(user1.follower_cnt),
+          followings: String(user.follow_cnt),
+          followings_int: Number(user1.followed_cnt),
+          priority: String(user.priority),
+          total_video: Number(user.video_cnt),
+          total_views: String(user.video_visit),
+          is_forkids: Boolean(user.show_kids_friendly == "no" ? false : true),
+          is_banned: Boolean(user.banned == "no" ? false : true),
+          is_official: Boolean(user1.official == "yes" ? true : false),
+          user: {
+            name: String(user.name),
+            username: String(user.username),
+            id: Number(user.id),
+            hash_id: String(user.hash_user_id),
+            icon: user.pic_b ? String(user.pic_b) : null,
+            cover: user.cover_src ? String(user.cover_src) : null,
+            links: {
+              website: user1.url ? String(user1.url) : null,
+              twitter: user1.twitter ? String(user1.twitter) : null,
+              lenzor: user1.lenzor ? String(user1.lenzor) : null,
+              cloob: user1.cloob ? String(user1.cloob) : null,
+              facebook: user1.facebook ? String(user1.facebook) : null
+            }
+          },
+          live: {
+            is_live: Boolean(live.live_status.type === "connected" ? true : false),
+            url: String(`https://www.aparat.com/${user.username}/live`),
+            title: live.title ? String(live.title) : null,
+            description: live.descr ? String(live.descr.replace("<p>", "").replace("</p>", "")) : null,
+            cover: live.attributes?.cover ? String(live.attributes?.cover) : null,
+            donate_link: live.donate_link?.url ? String(live.donate_link?.url) : null,
+            last_start_date: live.last_session_start_tim ? String(live.last_session_start_time) : null,
+            last_end_date: live.last_session_end_time ? String(live.last_session_end_time) : null,
+            moderators: live.moderator_data ? Array(live.moderator_data) : null,
+            vip_users: live.vip_users ? Array(live.vip_users.map) : null,
+            tag: {
+              id: live.live_tag?.tag_id ? Number(live.live_tag?.tag_id) : null,
+              name: live.live_tag?.tag_name ? String(live.live_tag?.tag_name) : null,
+              type: live.live_tag?.tag_type ? String(live.live_tag?.tag_type) : null,
+              picture: live.live_tag?.pic ? String(live.live_tag?.pic) : null,
+              is_game: live.live_tag?.is_game ? Boolean(live.live_tag?.is_game) : null
+            },
+            category: {
+              id: live.live_cat?.cat_id ? Number(live.live_cat?.cat_id) : null,
+              name: live.live_cat?.cat_name ? String(live.live_cat?.cat_name) : null
+            },
+            chat: {
+              pined_message: live.chat_pin_message ? String(live.chat_pin_message) : null
+            }
+          }
+        };
+        return results;
+      } catch (error) {
+        if (error.stack.includes("Unexpected token")) {
+          return results();
+        } else {
+          throw Error("User not found OwO");
+        }
+      }
     };
+    return results();
   }
 };
 /**
  * @copyright
- * Bot Coded by mr.sinre :) | https://dsc.gg/persian-caesar
+ * Coded by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA
  * @copyright
  * Work for Persian Caesar | https://dsc.gg/persian-caesar
  * @copyright
