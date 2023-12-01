@@ -12,7 +12,7 @@ const api = new API();
     const videos = await api.video.search("SpongBob");
     const video = videos[0];
     console.log(video.url);
-})();
+})(); 
 
 
 // Check the user is on stream or not.

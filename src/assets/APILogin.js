@@ -8,7 +8,7 @@ module.exports = class Login {
     constructor(username, password) {
         let url = `https://www.aparat.com/etc/api/login/luser/${username}/lpass/${password}`;
         let response = (url).then(res => res);
-        if (response.status == 200) {
+        if (response.status == 200) { 
             return response.data;
         } else {
             throw new Error("Can't loggin to aparat account OwO");

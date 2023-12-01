@@ -1,5 +1,5 @@
 module.exports = class User {
-
+ 
   /**
    * 
    * @param {string} username 

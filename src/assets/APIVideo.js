@@ -59,15 +59,6 @@ module.exports = class Video {
     };
     return results();
   }
-
-  /**
-   * 
-   * @param {string} id 
-   * @returns
-   */
-  async get(id) {
-
-  }
 };
 /**
  * @copyright
