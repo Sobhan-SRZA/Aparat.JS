@@ -53,7 +53,7 @@ module.exports = class Video {
         if (error.stack.includes("Unexpected token")) {
           return results();
         } else {
-          // throw Error("Video not found OwO");
+          throw Error("Video not found OwO");
         }
       }
     };
