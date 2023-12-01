@@ -17,7 +17,7 @@ module.exports = class User {
    *  console.log(`Followers: ${user.followers.toLocaleString()}`);
    *  console.log(`Followings: ${user.followings.toLocaleString()}`);
    * })(); 
-   * ```
+   * ``` 
    */
   search(username) {
     async function results() {

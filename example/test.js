@@ -20,7 +20,7 @@ const api = new API();
 api.checkStream("shervinbdndev");
 api.on("streamStart", async (user) => {
     console.log("User is on the stream:", user.live.url);
-});
+}); 
 /**
  * @copyright
  * Coded by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

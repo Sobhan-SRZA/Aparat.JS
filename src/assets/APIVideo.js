@@ -16,7 +16,7 @@ module.exports = class Video {
    *  const videos = await api.video.search("SpongBob");
    *  console.log(videos);
    * })(); 
-   * ```
+   * ``` 
    */
   search(args) {
     async function results() {

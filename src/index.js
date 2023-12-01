@@ -39,7 +39,7 @@ module.exports = {
      * ```
      */
     checkStream(username) {
-      let user;
+      let user; 
       let name = "streamStart";
       this.once(name, async () => {
         user = await this.user.search(username);
