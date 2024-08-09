@@ -1,0 +1,8 @@
+/src
+/node_modules
+
+.env
+.DS_Strore
+
+tsconfig.json
+tsup.config.ts

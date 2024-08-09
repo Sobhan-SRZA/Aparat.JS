@@ -1,5 +1,7 @@
-const EventEmitter = require("events");
-module.exports = {
+import { User } from "./components/user";
+import { Video } from "./components/video";
+import { EventEmitter } from 'events';
+export = {
   /**
    * @class
    * 
@@ -11,14 +13,12 @@ module.exports = {
    * const { API } = require("aparat.js");
    * const api = new API();
    * ```
-   */ 
+   */
   API: class API extends EventEmitter {
     constructor() {
       super();
-      const APIUser = require("./assets/APIUser");
-      const APIVideo = require("./assets/APIVideo");
-      this.user = new APIUser();
-      this.video = new APIVideo();
+      this.user = new User();
+      this.video = new Video();
     };
 
     /**
@@ -38,8 +38,8 @@ module.exports = {
      * });
      * ```
      */
-    checkStream(username) {
-      let user; 
+    checkStream(username: string) {
+      let user;
       let name = "streamStart";
       this.once(name, async () => {
         user = await this.user.search(username);
