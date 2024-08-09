@@ -1,3 +1,7 @@
 export class error extends Error {
-    this.name = "aparat.js"
+    constructor(message: string) {
+        super();
+        this.name = "aparat.js";
+        this.message = message;
+    }
 }

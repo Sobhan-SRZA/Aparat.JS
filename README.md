@@ -6,9 +6,7 @@ The aparat website services in one package free to use and more quality.
 An example to how catch user information like followers count and etc:
 ```js
 const { API } = require("aparat.js");
-
 const api = new API();
-
 (async () => {
 
     // User information results.
