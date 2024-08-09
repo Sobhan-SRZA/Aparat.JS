@@ -1,6 +1,5 @@
 import { User } from "./components/user";
 import { Video } from "./components/video";
-import { EventEmitter } from 'events';
 export = {
   /**
    * @class
@@ -14,9 +13,10 @@ export = {
    * const api = new API();
    * ```
    */
-  API: class API extends EventEmitter {
+  API: class API {
+    user: User;
+    video: Video;
     constructor() {
-      super();
       this.user = new User();
       this.video = new Video();
     };
@@ -38,18 +38,18 @@ export = {
      * });
      * ```
      */
-    checkStream(username: string) {
-      let user;
-      let name = "streamStart";
-      this.once(name, async () => {
-        user = await this.user.search(username);
-        if (user.live.is_live) {
-          this.emit(name, user);
-          return user;
-        };
-      });
-      this.emit(name, user);
-    }
+    // checkStream(username: string) {
+    //   let user;
+    //   let name = "streamStart";
+    //   this.once(name, async () => {
+    //     user = await this.user.search(username);
+    //     if (user.live.is_live) {
+    //       this.emit(name, user);
+    //       return user;
+    //     };
+    //   });
+    //   this.emit(name, user);
+    // }
   }
 };
 /**
