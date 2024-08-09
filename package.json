@@ -1,11 +1,14 @@
 {
   "name": "aparat.js",
-  "version": "1.0.1-latest",
+  "version": "0.0.1",
   "author": "Sobhan-SRZA (mr.sinre) & Persian Caesar",
   "description": "The aparat website services for npm package.",
-  "main": "src/index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
     "test": "node example/test.js"
   },
   "bugs": {
@@ -32,5 +35,9 @@
     "npm",
     "persian-caesar",
     "sobhan-srza"
-  ]
+  ],
+  "devDependencies": {
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
+  }
 }
