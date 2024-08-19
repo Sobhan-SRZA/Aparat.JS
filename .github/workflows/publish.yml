@@ -1,36 +1,55 @@
-name: Publish
+name: Release
+
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: read
+
 jobs:
-  publish:
-    name: Build & Publish
-    runs-on: ubuntu-latest
+  release:
     permissions:
-      id-token: write
+      contents: write  # for softprops/action-gh-release to create GitHub release
+    runs-on: ubuntu-latest
+    environment: release
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v3
-        with:
-          version: latest
-
-      - name: Install Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: "pnpm"
-          registry-url: "https://registry.npmjs.org"
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Publish
+      - name: Install ldid
         run: |
-          pnpm publish --access public --no-git-checks
-          pnpm deprecate "This version is deprecated, please upgrade to the latest version."
+          sudo apt-get update
+          sudo apt-get install git build-essential libplist-dev libssl-dev openssl qemu-user-binfmt
+          cd /tmp
+          git clone https://gitlab.com/opensource-saurik/ldid.git
+          cd ldid
+          git submodule update --init
+          gcc -I. -c -o lookup2.o lookup2.c
+          g++ -std=c++11 -o ldid lookup2.o ldid.cpp -I. -lcrypto -lplist -lxml2
+          sudo mv ldid /usr/local/bin
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          standalone: true
+      - name: pnpm install
+        # We use --force because we want all artifacts of @reflink/reflink to be installed.
+        run: pnpm install --force
+      - name: Publish Packages
+        continue-on-error: true
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
-          NPM_CONFIG_PROVENANCE: true
+          # setting the "npm_config_//registry.npmjs.org/:_authToken" env variable directly doesn't work.
+          # probably "pnpm release" doesn't pass auth tokens to child processes
+          NPM_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
+        run: |
+          npm config set "//registry.npmjs.org/:_authToken" "${NPM_TOKEN}" # pnpm config set is broken
+          pnpm release
+      - name: Copy Artifacts
+        run: pnpm run copy-artifacts
+      - name: Generate release description
+        run: pnpm run make-release-description
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: dist/*
