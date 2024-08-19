@@ -8,8 +8,7 @@
   "types": "./dist/index.d.ts",
   "license": "MIT",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "test": "node example/test.js"
+    "build": "tsup src/index.ts --format cjs,esm --dts"
   },
   "bugs": {
     "url": "https://github.com/Sobhan-SRZA/aparat.js/issues"
