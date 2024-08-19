@@ -142,18 +142,3 @@ Results of video search method is an array like the exmple:
     ...
 ]
 ```
-
-In version 1.0.1 you can check the user profile is it start a stream or not and will be alert to you.
-In an event you can have this option and use it like the example:
-```js
-const { API } = require("aparat.js");
-
-const api = new API();
-
-api.checkStream("shervinbdndev");
-api.on("streamStart", async (user) => {
-    console.log("User is on the stream:", user.live.url); // Returns: https://www.aparat.com/shervinbdndev/live
-});
-```
-
-User object is equals with `user.search` object.
