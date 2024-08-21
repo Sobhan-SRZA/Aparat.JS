@@ -1,11 +1,11 @@
-# aparat.js
+# aparat
 The aparat website services in one package free to use and more quality.
 
 
 # Doc
 An example to how catch user information like followers count and etc:
 ```js
-const { API } = require("aparat.js");
+const { API } = require("aparat");
 const api = new API();
 (async () => {
 
@@ -80,7 +80,7 @@ User object results:
 
 How search a video or get the information from it:
 ```js
-const { API } = require("aparat.js");
+const { API } = require("aparat");
 
 const api = new API();
 
