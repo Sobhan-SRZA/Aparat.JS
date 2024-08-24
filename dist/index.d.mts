@@ -1,5 +1,5 @@
 declare class User {
-    /**
+    /** 
      *
      * @param {string} username
      *

@@ -17,7 +17,7 @@ const api = new API();
 })();
 ```
 
-User object results:
+## User object results:
 ```json
 {
     "description": "درود،\nتو این کانال درباره مباحث برنامه نویسی صحبت میکنم و سعی دارم تا تجربه ام از کار با تکنولوژی ها رو آموزش بدم.",
@@ -78,7 +78,7 @@ User object results:
 }
 ```
 
-How search a video or get the information from it:
+## How search a video or get the information from it:
 ```js
 const { API } = require("aparat.js");
 

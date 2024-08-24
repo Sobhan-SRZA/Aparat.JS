@@ -60,7 +60,7 @@ export class Video {
         };
         return results();
     }
-};
+}; 
 /**
  * @copyright
  * Coded by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

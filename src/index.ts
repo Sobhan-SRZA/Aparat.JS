@@ -50,7 +50,7 @@ export = {
     //   });
     //   this.emit(name, user);
     // }
-  }
+  } 
 };
 /**
  * @copyright

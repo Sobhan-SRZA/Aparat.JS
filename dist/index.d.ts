@@ -2,7 +2,7 @@ declare class User {
     /**
      *
      * @param {string} username
-     *
+     * 
      * @description
      * Finding a user by username or user profile url and returns user profile informations.
      *

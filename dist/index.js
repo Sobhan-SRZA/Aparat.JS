@@ -175,7 +175,7 @@ module.exports = {
    * const { API } = require("aparat.js");
    * const api = new API();
    * ```
-   */
+   */ 
   API: class API {
     user;
     video;

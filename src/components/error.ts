@@ -3,5 +3,5 @@ export class error extends Error {
         super();
         this.name = "aparat.js";
         this.message = message;
-    }
+    } 
 }

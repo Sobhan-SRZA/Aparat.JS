@@ -1,7 +1,7 @@
 import { error } from "./error";
 
 export class User {
-
+ 
     /**
      * 
      * @param {string} username 
