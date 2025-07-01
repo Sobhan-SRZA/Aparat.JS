@@ -1,12 +1,5 @@
-import {
-  BaseApiUrlTypes,
-  ErrorCodes,
-  VideoQuality
-} from "../types/enums";
-import {
-  createWriteStream,
-  unlink
-} from "fs";
+import { BaseApiUrlTypes, ErrorCodes, VideoQuality } from "../types/enums";
+import { createWriteStream, unlink } from "fs";
 import { ApiVideoSearchV1Response } from "../types/api/api.v1.video";
 import { GetVideo, SearchVideo } from "../types/interfaces";
 import { ApiVideoHashResponse } from "../types/api/api.base.video";
@@ -61,6 +54,7 @@ export class VideoService {
 
       return results;
     } catch (error) {
+
       // Throw a custom APIError if the search fails
       throw new APIError(
         ErrorCodes.SEARCH_ERROR,
@@ -107,6 +101,7 @@ export class VideoService {
         download_links: data.video.file_link_all.map(a => ({ quality: a.profile, url: a.urls[0] }))
       }
     } catch (error) {
+
       // If fetching video details fails, wrap the error in an APIError
       throw new APIError(
         ErrorCodes.SEARCH_ERROR,
@@ -163,12 +158,14 @@ export class VideoService {
             });
           })
           .on("error", (err) => {
+
             // Remove incomplete file on error and reject the promise with an APIError
             unlink(outputPath, () => { });
             reject(new APIError(ErrorCodes.DOWNLOAD_ERROR, err.message));
           });
       });
     } catch (error) {
+
       // Wrap any download-related errors into an APIError and throw
       throw new APIError(
         ErrorCodes.DOWNLOAD_ERROR,

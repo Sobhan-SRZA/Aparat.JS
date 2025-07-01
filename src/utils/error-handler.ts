@@ -2,6 +2,7 @@ import { ErrorCodes } from "../types/enums";
 
 // Custom error class for API errors, extending the built-in Error class.
 export class APIError extends Error {
+
   // The constructor accepts an error code and a message.
   constructor(
     public code: ErrorCodes, // The specific error code associated with the error.
@@ -9,6 +10,7 @@ export class APIError extends Error {
   ) {
     super(message); // Pass the message to the parent Error class.
     this.name = "AparatAPIError"; // Set a custom error name for easier identification.
+
     // Fix the prototype chain to ensure instanceof works correctly.
     Object.setPrototypeOf(this, APIError.prototype);
   }

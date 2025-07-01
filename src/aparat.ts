@@ -1,7 +1,7 @@
 import { AparatEventEmitter } from "./core/events";
-import { VideoService } from "./services/video";
 import { UserService } from "./services/user";
 import { ApiService } from "./core/api";
+import { VideoService } from "./services/video";
 
 // The Aparat class acts as a unified interface to interact with various services.
 // It encapsulates user operations, video operations, and event handling.
@@ -11,12 +11,16 @@ export class Aparat {
   public readonly events: AparatEventEmitter; // Handles event emitting for live stream notifications.
 
   constructor() {
+
     // Create an instance of ApiService which is used by both UserService and VideoService.
     const apiService = new ApiService();
+
     // Initialize the user service with the API service.
     this.user = new UserService(apiService);
+
     // Initialize the video service with the API service.
     this.video = new VideoService(apiService);
+
     // Initialize the event emitter with the user service for live stream event handling.
     this.events = new AparatEventEmitter(this.user);
   }
