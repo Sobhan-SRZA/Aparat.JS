@@ -5,7 +5,7 @@ const aparat = new Aparat();
 
 // User information results.
 async function getUserProfile(username = "SobhanSRZA") {
- const user = await aparat.user.getProfile("sobhansrza");
+ const user = await aparat.user.getProfile(username);
  console.log(`Followers: ${user.followers.toLocaleString()}`); // Followers: 10
  console.log(`Followings: ${user.followings.toLocaleString()}`); // Followings: 7
 }
