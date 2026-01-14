@@ -37,7 +37,7 @@
     "sobhan-srza"
   ],
   "engines": {
-    "node": ">=21"
+    "node": ">=20"
   },
   "devDependencies": {
     "@types/node": "^22.15.17"
