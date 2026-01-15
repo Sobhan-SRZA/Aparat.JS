@@ -13,6 +13,7 @@ export class APIError extends Error {
     Object.setPrototypeOf(this, APIError.prototype);
   }
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

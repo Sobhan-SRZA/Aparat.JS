@@ -27,6 +27,7 @@ export enum VideoQuality {
     P2160 = "2160p", // 4K
     P4320 = "4320p" // 8K
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

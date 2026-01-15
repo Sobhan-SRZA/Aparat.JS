@@ -101,6 +101,7 @@ export interface GetVideo {
     download_link: string;
     download_links: Array<{ quality: string; url: string; }>
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

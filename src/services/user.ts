@@ -79,11 +79,14 @@ export class UserService {
                 data.links.website = userApiV1About.meta.data.url;
 
             return data;
-        } catch (error) {
+        } 
+        
+        catch (error) {
             // Convert HTTP errors into a USER_NOT_FOUND error for clarity
             if (error instanceof APIError && error.code === ErrorCodes.HTTP_ERROR) {
                 throw new APIError(ErrorCodes.USER_NOT_FOUND, "User not defined");
             }
+
             throw error;
         }
     }
@@ -152,6 +155,7 @@ export class UserService {
         return null;
     }
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

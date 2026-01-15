@@ -6,6 +6,7 @@ export type AparatEventTypes = {
 }
 
 export type YesOrNo = "no" | "yes";
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

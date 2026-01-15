@@ -222,6 +222,7 @@ interface StreamerDetailsCover {
 interface UxDataPage {
     live: any[];
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

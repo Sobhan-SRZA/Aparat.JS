@@ -1,7 +1,7 @@
 /**
  * @license
     MIT License
-    Copyright (c) 2025 Sobhan-SRZA (mr.sinre) & Persian Caesar
+    Copyright (c) 2026-2025 Sobhan-SRZA (mr.sinre) & Persian Caesar
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files (the "Software"), to deal
@@ -21,11 +21,13 @@
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
     SOFTWARE.
  */
+
 // Re-export the main Aparat class so that it can be easily imported from this module.
 export * from "./aparat";
 
 // Re-export all enums from the enums module, making them accessible to library consumers.
 export * from "./types/enums";
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

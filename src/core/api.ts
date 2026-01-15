@@ -44,7 +44,9 @@ export class ApiService {
 
             // Parse and return the JSON response
             return await response.json();
-        } catch (error) {
+        }
+
+        catch (error) {
 
             // Handle and rethrow errors appropriately
             throw this.handleError(error);
@@ -58,12 +60,14 @@ export class ApiService {
      */
     private handleError(error: unknown): APIError {
         if (error instanceof APIError) return error;
+
         return new APIError(
             ErrorCodes.NETWORK_ERROR,
             error instanceof Error ? error.message : "Unknown error"
         );
     }
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

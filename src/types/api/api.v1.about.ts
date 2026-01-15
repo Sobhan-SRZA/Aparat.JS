@@ -43,7 +43,8 @@ interface MetaDetails {
     month_visit_str: string;
 }
 
-type SocialMediaTitle = "telegram" | "instagram" | "facebook" | "instagram";
+type SocialMediaTitle = "telegram" | "facebook" | "instagram";
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA
