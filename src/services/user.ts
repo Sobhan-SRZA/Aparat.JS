@@ -4,8 +4,10 @@ import {
 } from "../types/enums";
 import {
     Profile,
+    ProfilePlaylists,
     StreamProfile
 } from "../types/interfaces";
+import { ApiV1PlaylistsResponse } from "../types/api/api.v1.playlist";
 import { ApiV1ProfileResponse } from "../types/api/api.v1.profile";
 import { ApiV2ProfileResponse } from "../types/api/api.v2.profile";
 import { ApiV1AboutResponse } from "../types/api/api.v1.about";
@@ -44,7 +46,7 @@ export class UserService {
                 socialLinks = userApiV1About.data.attributes?.social;
 
             // Combine data from both endpoints to construct and return the Profile object
-            const data: any = {
+            const data: Profile = {
                 description: userApiV1About.meta.data.description,
                 created_at: new Date(userApiV1About.meta.data.start_date),
                 followers: userApiV1Profile.data.attributes.follower_cnt_num,
@@ -76,11 +78,54 @@ export class UserService {
                 });
 
             if (userApiV1About.meta.data.url)
-                data.links.website = userApiV1About.meta.data.url;
+                data.links!.website = userApiV1About.meta.data.url;
 
             return data;
-        } 
-        
+        }
+
+        catch (error) {
+            // Convert HTTP errors into a USER_NOT_FOUND error for clarity
+            if (error instanceof APIError && error.code === ErrorCodes.HTTP_ERROR) {
+                throw new APIError(ErrorCodes.USER_NOT_FOUND, "User not defined");
+            }
+
+            throw error;
+        }
+    }
+
+    /**
+     * Retrieves the profile information of a user using two different API endpoints.
+     * The first API call gets detailed profile attributes and the second provides additional link data.
+     *
+     * @param username - The username of the user.
+     * @returns A Promise that resolves to a ProfilePlaylists object containing user details.
+     * @throws APIError if the user is not found or an HTTP error occurs.
+     */
+    public async getProfilePlaylists(username: string): Promise<ProfilePlaylists> {
+        try {
+            const userApiV1Playlists: ApiV1PlaylistsResponse = await this.api.fetch(
+                BaseApiUrlTypes.ApiV1,
+                Endpoints.V1.UserPlaylists(username)
+            );
+            const playlistRawData = userApiV1Playlists.data[0].attributes;
+            const data: ProfilePlaylists = {
+                total: playlistRawData.total,
+                username: playlistRawData.dataSource_key,
+                list: userApiV1Playlists.included.map(
+                    playlist =>
+                    ({
+                        id: playlist.id,
+                        uid: playlist.attributes.uid,
+                        title: playlist.attributes.title,
+                        poster: playlist.attributes.big_poster,
+                        video_count: Number(playlist.attributes.cnt)
+                    })
+                )
+            }
+
+            return data;
+        }
+
         catch (error) {
             // Convert HTTP errors into a USER_NOT_FOUND error for clarity
             if (error instanceof APIError && error.code === ErrorCodes.HTTP_ERROR) {
@@ -127,8 +172,8 @@ export class UserService {
             return {
                 url: `https://www.aparat.com/${data.username}/live`,
                 title: data.title,
-                description: data?.descr?.replace("<p>", "")?.replace("</p>", "") || null,
-                cover: data.live_status.attributes.cover,
+                description: data?.descr?.replace(/<p>|<\/p>/g, "") || null,
+                cover: data.live_status.attributes?.cover || null,
                 donate_link: data.donate_link.url,
                 last_start_date: data.last_session_start_time,
                 last_end_date: data.last_session_end_time,

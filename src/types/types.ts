@@ -5,7 +5,9 @@ export type AparatEventTypes = {
     "error": [error: Error];
 }
 
-export type YesOrNo = "no" | "yes";
+export type YON = "no" | "yes";
+
+export type NullString = string | null;
 
 /**
  * @copyright

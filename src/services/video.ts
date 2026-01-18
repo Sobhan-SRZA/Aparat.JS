@@ -5,6 +5,7 @@ import {
 } from "../types/enums";
 import {
   createWriteStream,
+  mkdirSync,
   unlink
 } from "fs";
 import { ApiVideoSearchV1Response } from "../types/api/api.v1.video";
@@ -66,7 +67,7 @@ export class VideoService {
       // Throw a custom APIError if the search fails
       throw new APIError(
         ErrorCodes.SEARCH_ERROR,
-        "Faild to search the video"
+        "Faild to search the video by string"
       );
     }
   }
@@ -114,7 +115,7 @@ export class VideoService {
       // If fetching video details fails, wrap the error in an APIError
       throw new APIError(
         ErrorCodes.SEARCH_ERROR,
-        "Faild to search the video"
+        "Faild to search the video by id"
       );
     }
   }
@@ -131,7 +132,7 @@ export class VideoService {
   public async download(
     hash: string,
     quality: VideoQuality = VideoQuality.P720,
-    outputPath: string = "./video.mp4"
+    outputPath: string = "./"
   ): Promise<void> {
     try {
       const video: GetVideo = await this.get(hash);
@@ -157,15 +158,33 @@ export class VideoService {
 
       // Stream the video file and save it locally
       await new Promise<void>((resolve, reject) => {
-        const file = createWriteStream(outputPath);
+
+        // Make sure the directory is exist.
+        try {
+          mkdirSync(outputPath);
+        }
+
+        catch (err: any) {
+          if (err.code !== "EEXIST")
+            throw new APIError(ErrorCodes.DOWNLOAD_ERROR, err.message)
+        }
+
+        // Remove the invalid chars from title for file name.
+        const invalidCharsRegExp = /[\/\\:?"<>|*]/g;
+        const clearTitle = video.title
+          .replace(invalidCharsRegExp, " ")
+
+        const file = createWriteStream(outputPath + `/${clearTitle}.mp4`);
+
         https
           .get(downloadLinkObj.url, (response) => {
-            response.pipe(file);
+            response.pipe(file, { end: true });
             file.on("finish", () => {
               file.close();
               resolve();
             });
           })
+
           .on("error", (err) => {
             // Remove incomplete file on error and reject the promise with an APIError
             unlink(outputPath, () => { });
@@ -178,7 +197,9 @@ export class VideoService {
       // Wrap any download-related errors into an APIError and throw
       throw new APIError(
         ErrorCodes.DOWNLOAD_ERROR,
-        error instanceof Error ? error.message : "Faild to download the video!"
+        error instanceof Error
+          ? error.message
+          : "Faild to download the video!"
       );
     }
   }

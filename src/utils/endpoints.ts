@@ -6,12 +6,18 @@ export const Endpoints = {
     // Returns the URL endpoint for searching videos using a query string.
     SearchVideo: (query: string) => `/video/video/search/text/${query}/?type_search=search`,
     // Returns the URL endpoint for fetching user profile about me by username.
-    AboutUser: (username: string) => `/user/user/about/username/${username}`
+    AboutUser: (username: string) => `/user/user/about/username/${username}`,
+    // Returns the URL endpoint for fetching user profile about me by username.
+    UserPlaylists: (username: string) => `/video/playlist/list2/username/${username}`,
+    // Returns the URL endpoint for fetching playlist about me by username.
+    GetPlaylist: (id: string) => `/video/playlist/one/playlist_id/${id}`
   },
+
   V2: {
     // Returns the URL endpoint for retrieving live stream profile information by username.
     Profile: (username: string) => `/Live/LiveStream/show/username/${username}`
   },
+
   Base: {
     // Returns the URL endpoint for fetching basic user profile details by username.
     Profile: (username: string) => `/profile/username/${username}`,
@@ -19,6 +25,7 @@ export const Endpoints = {
     GetVideo: (videoId: string) => `/video/videohash/${videoId}`
   }
 };
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

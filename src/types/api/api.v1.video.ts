@@ -1,4 +1,4 @@
-import { YesOrNo } from "../types";
+import { YON } from "../types";
 
 export interface ApiVideoSearchV1Response {
     data: Row[];
@@ -89,7 +89,7 @@ interface VideoAttributes {
     sdate_rss: string;
     sdate_timediff: number;
     frame: string;
-    official: YesOrNo;
+    official: YON;
     autoplay: boolean;
     "360d": null;
     brand_priority: string;

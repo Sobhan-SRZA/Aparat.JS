@@ -1,4 +1,5 @@
 import { AparatEventEmitter } from "./core/events";
+import { PlaylistService } from "./services/playlist";
 import { VideoService } from "./services/video";
 import { UserService } from "./services/user";
 import { ApiService } from "./core/api";
@@ -8,19 +9,27 @@ import { ApiService } from "./core/api";
 export class Aparat {
   public readonly user: UserService;          // Provides methods to handle user-related operations.
   public readonly video: VideoService;        // Provides methods to handle video-related operations.
+  public readonly playlist: PlaylistService;        // Provides methods to handle playlist-related operations.
   public readonly events: AparatEventEmitter; // Handles event emitting for live stream notifications.
 
   constructor() {
     // Create an instance of ApiService which is used by both UserService and VideoService.
     const apiService = new ApiService();
+
     // Initialize the user service with the API service.
     this.user = new UserService(apiService);
+
     // Initialize the video service with the API service.
     this.video = new VideoService(apiService);
+
+    // Initialize the playlist service with the API service.
+    this.playlist = new PlaylistService(apiService);
+
     // Initialize the event emitter with the user service for live stream event handling.
     this.events = new AparatEventEmitter(this.user);
   }
 }
+
 /**
  * @copyright
  * Code by Sobhan-SRZA (mr.sinre) | https://github.com/Sobhan-SRZA

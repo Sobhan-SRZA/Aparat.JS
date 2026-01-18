@@ -30,7 +30,9 @@ export class AparatEventEmitter extends EventEmitter<AparatEventTypes> {
                     const streamProfile = await this.userService.getStreamProfile(username);
                     this.emit("live_start", streamProfile!);
                 }
-            } catch (error: any) {
+            }
+
+            catch (error: any) {
                 // Emit an error event if the check fails
                 this.emit("error", error);
             }

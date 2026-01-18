@@ -123,7 +123,7 @@ interface Stat {
 
 interface LiveStatus {
     type: "nolive" | "connected";
-    attributes: LiveStatusAttributes;
+    attributes?: LiveStatusAttributes;
 }
 
 interface LiveStatusAttributes {
